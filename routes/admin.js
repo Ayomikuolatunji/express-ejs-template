@@ -7,7 +7,7 @@ const path=require("path")
 const products=[]
 
 routerAdmin.get("/add-product",(req, res, next) => {
-    res.render("add-product", {title:"shop"})
+    res.render("add-product", {title:"add-product"})
 })
 routerAdmin.post("/add-product",(req,res,next)=>{
     products.push({title:req.body.title,price:req.body.price, path:"admin/add-product"})
