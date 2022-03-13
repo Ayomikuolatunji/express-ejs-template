@@ -22,7 +22,7 @@ app.set("views","views")
 app.use("/admin",routerAdmin)
 app.use(shop)
 
-// error message
+// error  message page
 app.use(Err);
 
 // server
