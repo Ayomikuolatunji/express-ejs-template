@@ -7,16 +7,28 @@
     <%- include("../layout/nav.ejs") %>
 
     <main>
-        <form class="product-form" action="/admin/add-product" method="POST">
+        <form class="product-form" action="/admin/add-product" method="POST" style="border: 1px solid gray;padding: 5px;">
+            <div class="form-control" style="text-align: center;">
+                <h3>Add Book</h3>
+            </div>
             <div class="form-control">
                 <label for="title">Title</label>
                 <input type="text" name="title" id="title">
             </div>
             <div class="form-control">
-                <label for="title">price</label>
-                <input type="text" name="price" id="price">
+                <label for="imageUrl">Image URL</label>
+                <input type="text" name="imageUrl" id="imageUrl">
             </div>
-            <button type="submit" class="btn">Add Product</button>
+            <div class="form-control">
+                <label for="price">Price</label>
+                <input type="number" name="price" id="price" step="0.01">
+            </div>
+            <div class="form-control">
+                <label for="description">Description</label>
+                <textarea name="description" id="description" rows="5"></textarea>
+            </div>
+
+            <button class="btn" type="submit">Add Product</button>
         </form>
     </main>
     <%- include("../layout/end.ejs") %>
