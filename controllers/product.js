@@ -7,12 +7,12 @@ const postAddProduct=(req,res,next)=>{
 }
 
 const getAllproducts=(req, res, next) => {
-    res.render("add-product", {title:"add-product", path:"admin/add-product"})
+    res.render("admin/add-product", {title:"add-product", path:"admin/add-product"})
 }
 
 const allProducts=(req, res, next) => {
     Products.fetchAll((products)=>{
-        res.status(200).render("shop",{
+        res.status(200).render("shop/product-list",{
             prod:products, 
             title:"My Shopping",
             prodTitle:"Great Books",

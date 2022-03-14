@@ -31,7 +31,7 @@ class Products{
           );
           fs.readFile(p, (err, fileContent) => {
             if (err) {
-              cb([]);
+              return  cb([]);
             }
             cb(JSON.parse(fileContent));
           });
