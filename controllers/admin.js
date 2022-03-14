@@ -11,15 +11,15 @@ const getAllproducts=(req, res, next) => {
     res.render("admin/add-product", {title:"add-product", path:"/admin/add-product"})
 }
 
-const getIndex=(req, res, next) => {
+const adminProduct=(req, res, next) => {
     Products.fetchAll((products)=>{
-        res.status(200).render("admin/products",{
+        res.status(200).render("admin/product",{
             prod:products, 
             title:"My Shopping",
-            title:"shop",
+            title:"admin products",
             path:"/admin/products"
         })
     })
 }
 
-module.exports={postAddProduct,getAllproducts}
+module.exports={postAddProduct,getAllproducts,adminProduct}
