@@ -12,6 +12,7 @@ class Products{
     }
 
     save(){
+          this.id=Math.random().toString()
           const read = path.join(pathDir,'data', 'products.json');
           fs.readFile(read, (err, fileContent) => {
             let products = [];
@@ -25,19 +26,27 @@ class Products{
           });
     }
 
-     static fetchAll(cb){
-        const p = path.join(
-             pathDir,
-            'data',
-            'products.json'
-          );
-          fs.readFile(p, (err, fileContent) => {
-            if (err) {
-              return  cb([]);
-            }
-            cb(JSON.parse(fileContent));
-          });
+    static fetchAll(cb){
+      const read = path.join( pathDir, 'data', 'products.json');
+        fs.readFile(read, (err, fileContent) => {
+          if (err) {
+            return  cb([]);
+          }
+          cb(JSON.parse(fileContent));
+        });
+    }
+
+    static findById(id,prods){
+      const read = path.join( pathDir, 'data', 'products.json');
+      fs.readFile(read, (err, fileContent) => {
+        if (err) {
+          return  prods=[];
         }
+        const cb =JSON.parse(fileContent);
+        const product=cb.find(p=>p.id===id);
+        prods(product)
+      });
+    }
     
 }
 

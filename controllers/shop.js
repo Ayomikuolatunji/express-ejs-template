@@ -1,5 +1,4 @@
 const Products=require("../models/product")
-
 const allProducts=(req, res, next) => {
     Products.fetchAll((products)=>{
         res.status(200).render("shop/product-list",{
@@ -11,6 +10,12 @@ const allProducts=(req, res, next) => {
     })
 }
 
+const getProduct=(req,res,next)=>{
+   const prodId=req.params.productId
+   Products.findById(prodId,cb=>{
+       res.render("shop/product-detail", {product:cb})
+   })
+}
 const getIndex=(req, res, next) => {
     Products.fetchAll((products)=>{
         res.status(200).render("shop/index",{
@@ -42,4 +47,4 @@ const getCheckout=(req,res,next)=>{
         path:"/checkout"
     })
 }
-module.exports={allProducts,getIndex,viewCart,getCheckout,viewOrder}
+module.exports={allProducts,getIndex,viewCart,getCheckout,viewOrder,getProduct}
