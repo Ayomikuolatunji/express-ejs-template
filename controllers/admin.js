@@ -2,7 +2,11 @@ const Products=require("../models/product");
 
 
 const postAddProduct=(req,res,next)=>{
-    const product=new Products(req.body.title, req.body.price)
+    const title = req.body.title;
+    const imageUrl = req.body.imageUrl;
+    const price = req.body.price;
+    const description = req.body.description;
+    const product = new Products(title, imageUrl, description, price);
     product.save()
     res.redirect("/")
 }
