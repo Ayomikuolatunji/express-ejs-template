@@ -29,6 +29,12 @@ const viewCart=(req,res,next)=>{
     })
 }
 
+const viewOrder=(req,res,next)=>{
+    res.render("shop/orders", {
+        title:"orders", 
+        path:"/orders"
+    })
+}
 
 const getCheckout=(req,res,next)=>{
     res.render("shop/checkout", {
@@ -36,4 +42,4 @@ const getCheckout=(req,res,next)=>{
         path:"/checkout"
     })
 }
-module.exports={allProducts,getIndex,viewCart,getCheckout}
+module.exports={allProducts,getIndex,viewCart,getCheckout,viewOrder}
