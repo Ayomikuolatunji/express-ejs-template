@@ -4,7 +4,7 @@ const path=require("path")
 const pathDir=require("../util/path")
 
 class Products{
-    constructor(title,price,description,imageUrl){
+    constructor(title, imageUrl, description, price){
         this.title=title,
         this.price=price,
         this.description=description,
