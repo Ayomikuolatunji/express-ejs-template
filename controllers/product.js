@@ -11,9 +11,13 @@ const getAllproducts=(req, res, next) => {
 }
 
 const allProducts=(req, res, next) => {
-    const products=Products.fetchAll()
-    res.status(200).render("shop",{
-        prod:products, title:"My Shopping",prodTitle:"Great Books",path:"/"
+    Products.fetchAll((products)=>{
+        res.status(200).render("shop",{
+            prod:products, 
+            title:"My Shopping",
+            prodTitle:"Great Books",
+            path:"/"
+        })
     })
 }
 

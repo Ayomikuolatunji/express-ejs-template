@@ -10,26 +10,33 @@ class Products{
     }
 
     save(){
+          const read = path.join(pathDir,'data', 'products.json');
+          fs.readFile(read, (err, fileContent) => {
+            let products = [];
+            if (!err) {
+              products = JSON.parse(fileContent);
+            }
+            products.push(this);
+            fs.writeFile(read, JSON.stringify(products), err => {
+              console.log(err);
+            });
+          });
+    }
+
+     static fetchAll(cb){
         const p = path.join(
              pathDir,
             'data',
             'products.json'
           );
           fs.readFile(p, (err, fileContent) => {
-            let products = [];
-            if (!err) {
-              products = JSON.parse(fileContent);
+            if (err) {
+              cb([]);
             }
-            products.push(this);
-            fs.writeFile(p, JSON.stringify(products), err => {
-              console.log(err);
-            });
+            cb(JSON.parse(fileContent));
           });
-    }
-
-     static fetchAll(){
-       return products
-    }
+        }
+    
 }
 
 module.exports=Products
