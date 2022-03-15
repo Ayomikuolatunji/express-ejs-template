@@ -22,10 +22,11 @@ const getProduct=(req,res,next)=>{
 }
 
 const postCart=(req,res,next)=>{
-    const postId=req.body.post
+    const postId=req.body.productId
     console.log(postId)
     res.redirect("/cart")
 }
+
 const getIndex=(req, res, next) => {
     Products.fetchAll((products)=>{     
         res.status(200).render("shop/index",{

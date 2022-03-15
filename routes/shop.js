@@ -13,7 +13,7 @@ router.get("/products/:productId",getProduct);
 
 router.get("/cart",viewCart)
 
-router.get("/cart", postCart)
+router.post("/cart", postCart)
 
 router.get('/orders',viewOrder)
 
