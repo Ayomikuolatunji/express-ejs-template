@@ -12,23 +12,29 @@ const postAddProduct=(req,res,next)=>{
 }
 
 const getAllproducts=(req, res, next) => {
-    res.render("admin/add-product", {
-        title:"add-product", 
-        path:"/admin/add-product"
-    })
+    res.render('admin/edit-product', {
+        title: 'Add Product',
+        path: '/admin/add-product',
+        editing: false
+      });
 }
 const editProduct=(req, res, next) => {
-    const editMode=req.query.edit;
-    if(!editMode){
-        return res.redirect("/")
+    const editMode = req.query.edit;
+    if (!editMode) {
+      return res.redirect('/');
     }
-    const prodId=req.body.productId
-    res.render("admin/edit-product", {
-        title:"edit-product", 
-        path:"/admin/edit-product",
-        edit:editMode
-       }
-    )}
+    const prodId = req.params.productId;
+    Products.findById(prodId, product => {
+      if (!product) {
+        return res.redirect('/');
+      }
+      res.render('admin/edit-product', {
+        pageTitle: 'Edit Product',
+        editing: editMode,
+        product: product
+      });
+    });
+    }
 const adminProduct=(req, res, next) => {
     Products.fetchAll((products)=>{
         res.status(200).render("admin/product",{
