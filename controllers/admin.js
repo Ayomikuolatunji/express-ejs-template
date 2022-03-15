@@ -14,16 +14,18 @@ const postAddProduct=(req,res,next)=>{
 const getAllproducts=(req, res, next) => {
     res.render("admin/add-product", {
         title:"add-product", 
-        path:"/admin/add-product"})
+        path:"/admin/add-product"
+    })
 }
 const editProduct=(req, res, next) => {
     const editMode=req.query.edit;
     if(!editMode){
         return res.redirect("/")
     }
+    const prodId=req.body.productId
     res.render("admin/edit-product", {
         title:"edit-product", 
-        path:"/admin/add-product",
+        path:"/admin/edit-product",
         edit:editMode
        }
     )}
