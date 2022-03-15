@@ -1,4 +1,7 @@
-const Products=require("../models/product")
+const Products=require("../models/product");
+const Cart=require("../models/cart")
+
+
 const allProducts=(req, res, next) => {
     Products.fetchAll((products)=>{
         res.status(200).render("shop/product-list",{
@@ -23,7 +26,10 @@ const getProduct=(req,res,next)=>{
 
 const postCart=(req,res,next)=>{
     const postId=req.body.productId
-    console.log(postId)
+    Products.findById(prodId, product=>{
+       Cart.addProduct(prodId,product.price)
+    })
+  
     res.redirect("/cart")
 }
 
