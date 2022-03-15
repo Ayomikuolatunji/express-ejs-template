@@ -13,11 +13,21 @@ const allProducts=(req, res, next) => {
 const getProduct=(req,res,next)=>{
    const prodId=req.params.productId
    Products.findById(prodId,cb=>{
-       res.render("shop/product-detail", {product:cb})
+       res.render("shop/product-detail", {
+           product:cb,
+           title:cb.title, 
+           path:"/products"
+        })
    })
 }
+
+const postCart=(req,res,next)=>{
+    const postId=req.body.post
+    console.log(postId)
+    res.redirect("/cart")
+}
 const getIndex=(req, res, next) => {
-    Products.fetchAll((products)=>{
+    Products.fetchAll((products)=>{     
         res.status(200).render("shop/index",{
             prod:products, 
             title:"My Shopping",
@@ -47,4 +57,4 @@ const getCheckout=(req,res,next)=>{
         path:"/checkout"
     })
 }
-module.exports={allProducts,getIndex,viewCart,getCheckout,viewOrder,getProduct}
+module.exports={allProducts,getIndex,viewCart,getCheckout,viewOrder,getProduct, postCart}
