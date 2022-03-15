@@ -1,5 +1,5 @@
 const Products=require("../models/product");
-const Cart=require("../models/cart")
+const {Cart}=require("../models/cart")
 
 
 const allProducts=(req, res, next) => {
@@ -25,11 +25,10 @@ const getProduct=(req,res,next)=>{
 }
 
 const postCart=(req,res,next)=>{
-    const postId=req.body.productId
-    Products.findById(prodId, product=>{
+    const prodId=req.body.productId
+    Products.findById(prodId, (product)=>{
        Cart.addProduct(prodId,product.price)
     })
-  
     res.redirect("/cart")
 }
 
