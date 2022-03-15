@@ -12,9 +12,15 @@ const postAddProduct=(req,res,next)=>{
 }
 
 const getAllproducts=(req, res, next) => {
-    res.render("admin/add-product", {title:"add-product", path:"/admin/add-product"})
+    res.render("admin/edit-product", {
+        title:"add-product", 
+        path:"/admin/add-product"})
 }
-
+const editproduct=(req, res, next) => {
+    res.render("admin/edit-product", {
+        title:"add-product", 
+        path:"/admin/add-product"})
+}
 const adminProduct=(req, res, next) => {
     Products.fetchAll((products)=>{
         res.status(200).render("admin/product",{
@@ -26,4 +32,4 @@ const adminProduct=(req, res, next) => {
     })
 }
 
-module.exports={postAddProduct,getAllproducts,adminProduct}
+module.exports={postAddProduct,getAllproducts,adminProduct,editproduct}
