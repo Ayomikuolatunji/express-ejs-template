@@ -4,7 +4,8 @@ const path=require("path")
 const pathDir=require("../util/path")
 
 class Products{
-    constructor(title, imageUrl, description, price){
+    constructor(id,title, imageUrl, description, price){
+        this.id=id
         this.title=title,
         this.price=price,
         this.description=description,
@@ -12,17 +13,26 @@ class Products{
     }
 
     save(){
-          this.id=Math.random().toString()
           const read = path.join(pathDir,'data', 'products.json');
           fs.readFile(read, (err, fileContent) => {
             let products = [];
             if (!err) {
               products = JSON.parse(fileContent);
             }
-            products.push(this);
-            fs.writeFile(read, JSON.stringify(products), err => {
-              console.log(err);
-            });
+            if(this.id){
+              const prodId=products.findIndex(p=>p.id===this.id);
+              const newProduct=[...products];
+              newProduct[prodId]=this
+              fs.writeFile(read, JSON.stringify(newProduct), err => {
+                console.log(err);
+              });
+            }else{
+              this.id=Math.random().toString()
+              products.push(this);
+              fs.writeFile(read, JSON.stringify(products), err => {
+                console.log(err);
+              });
+            }
           });
     }
 
@@ -40,10 +50,11 @@ class Products{
       const read = path.join( pathDir, 'data', 'products.json');
       fs.readFile(read, (err, fileContent) => {
         if (err) {
-          return  prods=[];
+          return  prods(JSON.parse(fileContent));
         }
         const cb =JSON.parse(fileContent);
         const product=cb.find(p=>p.id===id);
+    
         prods(product)
       });
     }

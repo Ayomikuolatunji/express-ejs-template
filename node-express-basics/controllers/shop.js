@@ -14,12 +14,11 @@ const allProducts=(req, res, next) => {
 }
 
 const getProduct=(req,res,next)=>{
-    const prodId = req.body.productId;
-    Products.findById(prodId, product => {
-        Cart.addProduct(prodId, product.price);
-    });
-    res.redirect('/cart');
-}
+    const prodId=req.params.productId
+    Products.findById(prodId,cb=>{
+        res.render("shop/product-detail", {product:cb,title:"title"})
+    })
+ }
 
 const postCart=(req,res,next)=>{
     const prodId=req.body.productId

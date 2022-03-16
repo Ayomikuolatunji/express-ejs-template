@@ -6,7 +6,7 @@ const postAddProduct=(req,res,next)=>{
     const imageUrl = req.body.imageUrl;
     const price = req.body.price;
     const description = req.body.description;
-    const product = new Products(title, imageUrl, description, price);
+    const product = new Products(null,title, imageUrl, description, price);
     product.save()
     res.redirect("/")
 }
@@ -31,7 +31,24 @@ const editProduct=(req, res, next) => {
         product: product
       });
     });
-    }
+}
+
+const postEditProduct=(req,res,next)=>{
+  const prodId = req.body.productId;
+  const updatedTitle = req.body.title;
+  const updatedPrice = req.body.price;
+  const updatedImageUrl = req.body.imageUrl;
+  const updatedDesc = req.body.description;
+  const updatedProduct = new Products(
+    prodId,
+    updatedTitle,
+    updatedImageUrl,
+    updatedDesc,
+    updatedPrice
+  );
+  updatedProduct.save();
+  res.redirect('/admin/products');
+}
 const adminProduct=(req, res, next) => {
     Products.fetchAll((products)=>{
         res.status(200).render("admin/product",{
@@ -43,4 +60,4 @@ const adminProduct=(req, res, next) => {
     })
 }
 
-module.exports={postAddProduct,getAllproducts,adminProduct,editProduct}
+module.exports={postAddProduct,getAllproducts,adminProduct,editProduct,postEditProduct}
