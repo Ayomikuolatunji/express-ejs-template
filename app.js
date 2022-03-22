@@ -1,36 +1,24 @@
+const path = require('path');
+
 const express = require('express');
-const app = express();
 const bodyParser = require('body-parser');
-const {routerAdmin}=require("./routes/admin");
-const Err= require("./util/err")
-const shop=require('./routes/shop');
-const path=require("path");
 
+const errorController = require('./controllers/error');
 
-// reading form data middleware
-app.use(bodyParser.urlencoded({extended:false}))
+const app = express();
 
-// adding css middleware
-app.use(express.static(path.join(__dirname,"public")));
+app.set('view engine', 'ejs');
+app.set('views', 'views');
 
+const adminRoutes = require('./routes/admin');
+const shopRoutes = require('./routes/shop');
 
-// template middleware
-app.set("view engine", "ejs");
-app.set("views","views")
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
 
-// route use
-app.use("/admin",routerAdmin)
-app.use(shop)
+app.use('/admin', adminRoutes);
+app.use(shopRoutes);
 
-// error  message page
-app.use(Err);
+app.use(errorController.get404);
 
-// server
-const port=5000
-app.listen(5000,(err)=>{
-  console.log(`App is running on ${port}`)
-  if(err){
-      console.log(err)
-      return
-  }  
-});
+app.listen(3000);
