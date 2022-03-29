@@ -21,6 +21,7 @@ exports.postAddProduct = (req, res, next) => {
   })
   .then(data=>{
     console.log("created sucessfully")
+    res.redirect("/admin/products")
   })
   .catch(err=>{
     console.log(err)
@@ -37,7 +38,7 @@ exports.getEditProduct = (req, res, next) => {
     if (!product) {
       return res.redirect('/');
     }
-    res.render('admin/edit-product', {
+      return res.render('admin/edit-product', {
       pageTitle: 'Edit Product',
       path: '/admin/edit-product',
       editing: editMode,
@@ -54,15 +55,22 @@ exports.postEditProduct = (req, res, next) => {
   const updatedPrice = req.body.price;
   const updatedImageUrl = req.body.imageUrl;
   const updatedDesc = req.body.description;
-  const updatedProduct = new Product(
-    prodId,
-    updatedTitle,
-    updatedImageUrl,
-    updatedDesc,
-    updatedPrice
-  );
-  updatedProduct.save();
-  res.redirect('/admin/products');
+
+  Products.findOne({where:{id:prodId}})
+  .then(product=>{
+    product.title=updatedTitle;
+    product.price=updatedPrice;
+    product.imageUrl=updatedImageUrl;
+    product.description=updatedDesc;
+    return product.save()
+  })
+  .then(dir=>{
+    res.redirect('/admin/products');
+  })
+  .catch(err=>{
+    console.log(err)
+  })
+
 };
 
 exports.getProducts = (req, res, next) => {
