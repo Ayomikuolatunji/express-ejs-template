@@ -31,6 +31,6 @@ module.exports = class Product {
   }
 
   static findById(id, cb) {
-    return pool.execute("SELECT * FROM products WHERE products,id=?",[id])
+    return pool.execute("SELECT * FROM products WHERE products.id=?",[id])
   }
 };
