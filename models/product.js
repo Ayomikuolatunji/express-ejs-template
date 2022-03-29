@@ -13,7 +13,7 @@ module.exports = class Product {
   }
 
   save() {
-      return db.execute("INSERT INTO products (id ,title,price,description,imageUrl) VALUE (?, ?, ?, ?)",[this.id, this.title,this.price,this.description,this.imageUrl])
+      return pool.execute("INSERT INTO products (id ,title,price,description,imageUrl) VALUE (?, ?, ?, ?,?)",[this.id, this.title,this.price,this.description,this.imageUrl])
   }
 
   static deleteById(id) {
