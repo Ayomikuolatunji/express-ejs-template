@@ -6,7 +6,7 @@ const Products=sequelize.define("products",{
      type:Sequelize.INTEGER,
      autoIncrement:true,
      allowNull:false,
-     primary_key:true
+     primaryKey:true
    },
    title:{
      type:Sequelize.STRING,
