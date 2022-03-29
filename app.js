@@ -27,8 +27,9 @@ app.use(errorController.get404);
 
 sequelize.sync()
 .then(data=>{
-    app.listen(3000);
-    console.log(data)
+    app.listen(3000,()=>{
+        console.log("app running on localhost 3000")
+    });
 })
 .catch(err=>{
    console.log(err)
