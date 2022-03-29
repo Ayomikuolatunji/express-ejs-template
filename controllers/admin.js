@@ -21,7 +21,7 @@ exports.postAddProduct = (req, res, next) => {
   })
   .then(data=>{
     console.log("created sucessfully")
-    res.redirect("/admin/products")
+      return res.redirect("/admin/products")
   })
   .catch(err=>{
     console.log(err)
@@ -87,6 +87,13 @@ exports.getProducts = (req, res, next) => {
 
 exports.postDeleteProduct = (req, res, next) => {
   const prodId = req.body.productId;
-  Product.deleteById(prodId);
-  res.redirect('/admin/products');
+  Products.findOne({where:{id:prodId}}).then(product=>{
+       return product.destroy()
+  })
+  .then(red=>{
+    res.redirect('/admin/products');
+  })
+  .catch(err=>{
+     console.log(errs)
+  })
 };
