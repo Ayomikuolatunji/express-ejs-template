@@ -20,7 +20,7 @@ exports.postAddProduct = (req, res, next) => {
       description:description
   })
   .then(data=>{
-    console.log("created")
+    console.log("created sucessfully")
   })
   .catch(err=>{
     console.log(err)
@@ -33,7 +33,7 @@ exports.getEditProduct = (req, res, next) => {
     return res.redirect('/');
   }
   const prodId = req.params.productId;
-  Product.findById(prodId, product => {
+  Products.findOne({where:{id:prodId}}).then(product=>{
     if (!product) {
       return res.redirect('/');
     }
@@ -43,6 +43,8 @@ exports.getEditProduct = (req, res, next) => {
       editing: editMode,
       product: product
     });
+  }).catch(err=>{
+    console.log(err)
   });
 };
 
@@ -64,13 +66,15 @@ exports.postEditProduct = (req, res, next) => {
 };
 
 exports.getProducts = (req, res, next) => {
-  Product.fetchAll(products => {
+  Products.findAll().then(product=>{
     res.render('admin/products', {
-      prods: products,
+      prods: product,
       pageTitle: 'Admin Products',
       path: '/admin/products'
     });
-  });
+    }).catch(err=>{
+        console.log(err)
+    })
 };
 
 exports.postDeleteProduct = (req, res, next) => {
