@@ -20,7 +20,7 @@ exports.postAddProduct = (req, res, next) => {
       description:description
   })
   .then(data=>{
-    console.log(data)
+    console.log("created")
   })
   .catch(err=>{
     console.log(err)
