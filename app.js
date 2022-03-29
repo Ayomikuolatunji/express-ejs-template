@@ -14,6 +14,7 @@ app.set('views', 'views');
 
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
+const { userInfo } = require('os');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -23,8 +24,10 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
+Product.belongsTo(User,{constraint:true, onDelete:"CASCADE"});
+User.hasMany(Product)
 
-sequelize.sync()
+sequelize.sync({force:true})
 .then(data=>{
     app.listen(3000,()=>{
         console.log("App is connected to the database running on localhost 3000")

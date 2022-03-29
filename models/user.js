@@ -1,27 +1,25 @@
-const Sequelize=require("sequelize")
-const sequelize=require("../db/database")
+const Sequelize = require('sequelize');
 
-const User=sequelize.define("user",{
-    id:{
-      type:Sequelize.INTEGER,
-      autoIncrement:true,
-      allowNull:false,
-      primaryKey:true    
-    },
-    name:{
-        type:Sequelize.Sequelize.String,
-        validate:{
-            isAlphanumeric: true,
-            min:25,
-        },
-    },
-    email:{
-        validate:{
-            isEmail: true,
-            notEmpty: true,  
-        },
-        allowNull:false
-    }
-})
+const sequelize = require('../db/database');
 
-module.exports=User
+const User = sequelize.define('user', {
+  id: {
+    type: Sequelize.INTEGER,
+    autoIncrement: true,
+    allowNull: false,
+    primaryKey: true
+  },
+  name: {
+      type:Sequelize.STRING,
+      validate:{
+        isAlphanumeric: true, 
+        len: [2,],  
+      }
+  },
+  email:{
+      type:Sequelize.STRING,
+      validate:{}
+  }
+});
+
+module.exports = User;
